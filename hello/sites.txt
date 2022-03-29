@@ -1,0 +1,4 @@
+https://random-status-code.herokuapp.com/
+https://www.alura.com.br
+https://www.caelum.com.br
+https://www.globo.com
