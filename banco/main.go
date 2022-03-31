@@ -1,16 +1,25 @@
 package main
 
-import "fmt"
-
-type ContaCorrente struct {
-	titular       string
-	numeroAgencia int
-	numeroConta   int
-	saldo         float64
-}
+import (
+	"banco/contas"
+	"fmt"
+)
 
 func main() {
-	contaBruna := ContaCorrente{"Bruna", 589, 123456, 125.5}
+	contaDenis := contas.ContaPoupanca{}
+	contaDenis.Depositar(100)
+	contaDenis.Sacar(25)
 
-	fmt.Println(contaBruna.titular)
+	fmt.Println(contaDenis.ObterSaldo())
+
+	PagarBoleto(&contaDenis, 30)
+	fmt.Println(contaDenis.ObterSaldo())
+}
+
+func PagarBoleto(conta VerificarConta, valorBoleto float64) {
+	conta.Sacar(valorBoleto)
+}
+
+type VerificarConta interface {
+	Sacar(valor float64) string
 }
