@@ -1,5 +1,5 @@
 <div align="center">
-  <h2>Formação Alura - Go: a linguagem de programação do Google</h2>
+  <h2>Formação Alura - Go: a linguagem de programação do Google 🦦</h2>
 </div>
 
 Projetos desenvolvidos durante a execução da Formação Go, disponibilizada na plataforma Alura.
