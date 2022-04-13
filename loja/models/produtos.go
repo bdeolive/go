@@ -14,7 +14,7 @@ type Produto struct {
 func FindAllProdutos() []Produto {
 	db := db.ConectaDB()
 
-	findAllProdutosSelect, err := db.Query("SELECT * FROM produtos")
+	findAllProdutosSelect, err := db.Query("SELECT * FROM produtos ORDER BY descricao DESC")
 
 	if err != nil {
 		panic(err.Error())
@@ -58,5 +58,65 @@ func InsertProduto(nome, descricao string, preco float64, quantidade int) {
 	}
 
 	scriptInsert.Exec(nome, descricao, preco, quantidade)
+	defer db.Close()
+}
+
+func Delete(id string) {
+	db := db.ConectaDB()
+
+	scriptDelete, err := db.Prepare("DELETE FROM produtos WHERE id = $1")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	scriptDelete.Exec(id)
+	defer db.Close()
+}
+
+func Edit(id string) Produto {
+	db := db.ConectaDB()
+
+	produtoUpdate, err := db.Query("SELECT * FROM produtos WHERE id = $1", id)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	produto := Produto{}
+
+	for produtoUpdate.Next() {
+		var id, quantidade int
+		var nome, descricao string
+		var preco float64
+
+		err = produtoUpdate.Scan(&id, &nome, &descricao, &preco, &quantidade)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		produto.Id = id
+		produto.Nome = nome
+		produto.Descricao = descricao
+		produto.Preco = preco
+		produto.Quantidade = quantidade
+	}
+
+	defer db.Close()
+	return produto
+}
+
+func Update(id, quantidade int, nome, descricao string, preco float64) {
+	db := db.ConectaDB()
+
+	scriptUpdate, err := db.Prepare("UPDATE produtos SET nome = $1, descricao = $2, preco = $3, quantidade = $4 WHERE id = $5")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	scriptUpdate.Exec(nome, descricao, preco, quantidade, id)
+
 	defer db.Close()
 }
