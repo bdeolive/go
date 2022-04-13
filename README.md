@@ -20,7 +20,7 @@ A formação possui três grupos de conteúdos, somando seis cursos que contempl
    - [x] Iniciando com a linguagem do Google
    - [x] Orientação a objetos
 - [ ] Aplicações Web e API Rest com Go
-  - [ ] Fundamentos de uma aplicação web
+  - [x] Fundamentos de uma aplicação web
   - [ ] Desenvolvendo uma API Rest
   - [ ] Go e Gin: criando API Rest com simplicidade
 - [ ] Validações e testes com Go
